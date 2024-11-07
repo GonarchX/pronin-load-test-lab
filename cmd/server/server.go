@@ -30,9 +30,9 @@ func main() {
 
 	defer db.Close()
 
-	http.HandleFunc("GET /v0/entity", readHandler)
-	http.HandleFunc("POST /v0/entity", writeHandler)
-	http.HandleFunc("POST /v0/entity/broken", brokenWriteHandler)
+	http.HandleFunc("GET /v0/employees", readHandler)
+	http.HandleFunc("POST /v0/employees", writeHandler)
+	http.HandleFunc("POST /v0/employees/broken", brokenWriteHandler)
 
 	flushToFilePeriodInSeconds, _ := strconv.Atoi(os.Getenv("FLUSH_PERIOD_IN_SECONDS"))
 	flushToFilePeriod := time.Duration(flushToFilePeriodInSeconds) * time.Second

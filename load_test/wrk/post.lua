@@ -10,7 +10,7 @@ end
 
 function request()
     local method = "POST"
-    local path = "/v0/entity"
+    local path = "/v0/employees"
     local name = randomString(25)
     local salary = math.random(1, 100000)
     local body = '{"name": "' .. name .. '", "salary": ' .. salary .. '}'
