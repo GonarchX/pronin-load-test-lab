@@ -2,14 +2,14 @@
 
 readonly LOAD_REPORT_FILE=load_report.txt
 
-./wrk/wrk -d 1 -t 6 -c 12 -R 100000 -s ./wrk/post.lua -L http://localhost:9080/v0/entry > $LOAD_REPORT_FILE
+./wrk/wrk -d 20 -t 6 -c 12 -R 500 -s ./wrk/post.lua -L http://localhost:9080/v0/entry/broken > $LOAD_REPORT_FILE
 
 if grep -q "Non-2xx or 3xx responses" $LOAD_REPORT_FILE; then
         echo "При проведении нагрузочного тестирования присутствовали запросы, которые вернули ошибки"
-    #    вывести результат
+elif grep -q "Socket errors:" $LOAD_REPORT_FILE; then
+        echo "При проведении нагрузочного тестирования присутствовали запросы, которые вернули ошибки"
 else
         echo "Все запросы к серверу З/П работников успешно завершились"
-    #    вывести результат
 fi
 
 # Смотрим, что в логах нету ошибок

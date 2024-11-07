@@ -8,6 +8,7 @@ import (
 	"load-test-lab/internal/domain/model"
 	logger "load-test-lab/pkg"
 	"log"
+	"math/rand/v2"
 	"net/http"
 	"os"
 	"strconv"
@@ -32,6 +33,7 @@ func main() {
 
 	http.HandleFunc("GET /v0/entity", readHandler)
 	http.HandleFunc("POST /v0/entity", writeHandler)
+	http.HandleFunc("POST /v0/entity/broken", brokenWriteHandler)
 
 	flushToFilePeriodInSeconds, _ := strconv.Atoi(os.Getenv("FLUSH_PERIOD_IN_SECONDS"))
 	flushToFilePeriod := time.Duration(flushToFilePeriodInSeconds) * time.Second
@@ -125,6 +127,14 @@ func writeHandler(w http.ResponseWriter, r *http.Request) {
 
 	w.WriteHeader(http.StatusCreated)
 	json.NewEncoder(w).Encode(employee)
+}
+
+func brokenWriteHandler(w http.ResponseWriter, r *http.Request) {
+	if rand.IntN(2) == 0 {
+		http.Error(w, "Internal error", http.StatusInternalServerError)
+	} else {
+		writeHandler(w, r)
+	}
 }
 
 func saveEmployeesToFile() {

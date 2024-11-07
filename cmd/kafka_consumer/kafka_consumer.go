@@ -25,7 +25,6 @@ func main() {
 
 	var errLog = logger.NewErrorFile("kafka_consumer")
 
-	errLog.Println("hello")
 	fmt.Printf("KAFKA_TOPIC: %v\n"+
 		"KAFKA_BOOTSTRAP: %v\n"+
 		"CONSUMER_GROUP_NAME: %v\n"+
