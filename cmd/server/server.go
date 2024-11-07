@@ -8,7 +8,6 @@ import (
 	"load-test-lab/internal/domain/model"
 	logger "load-test-lab/pkg"
 	"log"
-	"math/rand/v2"
 	"net/http"
 	"os"
 	"strconv"
@@ -130,11 +129,7 @@ func writeHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func brokenWriteHandler(w http.ResponseWriter, r *http.Request) {
-	if rand.IntN(2) == 0 {
-		http.Error(w, "Internal error", http.StatusInternalServerError)
-	} else {
-		writeHandler(w, r)
-	}
+	http.Error(w, "Internal error", http.StatusInternalServerError)
 }
 
 func saveEmployeesToFile() {
