@@ -2,7 +2,7 @@
 
 readonly LOAD_REPORT_FILE=load_report.txt
 
-./wrk/wrk -d 10 -t 6 -c 12 -R 500 -s ./wrk/post.lua -L http://localhost:9080 > $LOAD_REPORT_FILE
+./wrk/wrk -d 20 -t 6 -c 12 -R 500 -s ./wrk/post.lua -L http://localhost:9080 > $LOAD_REPORT_FILE
 
 if grep -q "Non-2xx or 3xx responses" $LOAD_REPORT_FILE; then
         echo "При проведении нагрузочного тестирования присутствовали запросы, которые вернули ошибки"
